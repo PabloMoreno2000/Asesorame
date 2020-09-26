@@ -1,0 +1,21 @@
+{
+  "name": "asesorame",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PabloMoreno2000/Asesorame.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PabloMoreno2000/Asesorame/issues"
+  },
+  "homepage": "https://github.com/PabloMoreno2000/Asesorame#readme"
+}
