@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
     required: true,
   },
@@ -15,6 +15,18 @@ const UserSchema = new mongoose.Schema({
   },
   // Not required because not all users are tutors
   tutorInfo: {
+    // We just need the user's name when they are tutors
+    name: {
+      firstName: {
+        type: String,
+      },
+      firstSurname: {
+        type: String,
+      },
+      secondSurname: {
+        type: String,
+      },
+    },
     // An array of references to the schema "subject"
     subjects: [
       {
