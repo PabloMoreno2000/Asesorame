@@ -12,4 +12,7 @@ app.use(express.json({ extended: false }));
 // Make a request to "http://localhost:5050" to see if it's running
 app.get("/", (req, res) => res.send("API Running"));
 
+// All the routes on ./routes/api/users are behind the main route /api/users
+app.use("/api/users", require("./routes/api/users"));
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
