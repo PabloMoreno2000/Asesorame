@@ -44,9 +44,7 @@ router.post(
 
       // Create new user using mongoose model
       let user = new User({
-        name,
-        email,
-        avatar,
+        username,
         password,
       });
 
