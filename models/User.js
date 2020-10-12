@@ -13,6 +13,10 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  isTutor: {
+    type: Boolean,
+    default: false,
+  },
   // Not required because not all users are tutors
   tutorInfo: {
     // We just need the user's name when they are tutors
