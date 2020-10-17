@@ -13,7 +13,6 @@ router.post(
     auth,
     [
       check("tutor", "Favor de ingresar un tutor").exists(),
-      check("student", "Favor de incluir el estudiante").exists(),
       check("begins", "Favor de incluir hora de inicio").exists(),
       check("subject", "Favor de incluir la materia").exists(),
       check("minutestime", "Favor de incluir la duracion").exists(),
@@ -28,8 +27,8 @@ router.post(
     }
 
     try {
-      const { tutor, student, begins, subject, minutestime } = req.body;
-
+      const { tutor, begins, subject, minutestime } = req.body;
+      const student = req.user.id;
       let newTS = new TS({
         tutor,
         student,
