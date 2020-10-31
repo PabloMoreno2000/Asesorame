@@ -51,4 +51,21 @@ router.post(
   }
 );
 
+router.delete("/delete/:id", auth, async (req, res) => {
+  try {
+    const session = await TS.findById(req.params.id);
+    const userId = req.user.id;
+
+    if (userId !== session.tutor && userId !== session.student) {
+      return res.status(403).send("Access Denied");
+    }
+
+    await TS.findByIdAndDelete(req.params.id);
+    res.send("Tutoring session deleted");
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server error");
+  }
+});
+
 module.exports = router;

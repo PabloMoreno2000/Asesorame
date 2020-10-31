@@ -44,6 +44,10 @@ const UserSchema = new mongoose.Schema({
       // It will be a stringify JSON
       type: String,
     },
+    tutoringLink: {
+      type: String,
+      required: true,
+    },
   },
 });
 
