@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
@@ -6,7 +7,7 @@ const User = require("../../models/User");
 
 // TODO: Put this in a try/catch
 router.put(
-  "/makeTutor/:id",
+  "/makeTutor",
   [
     auth,
     [
@@ -26,7 +27,12 @@ router.put(
       });
     }
 
-    const {
+    let user = await User.findById(req.user.id);
+    if (user.isTutor) {
+      return res.status(403).send("Access Denied");
+    }
+
+    let {
       firstName,
       firstSurname,
       secondSurname,
@@ -34,6 +40,10 @@ router.put(
       schedule,
       tutoringLink,
     } = req.body;
+
+    subjects = subjects.map((subject) => {
+      return mongoose.Types.ObjectId(subject);
+    });
 
     const tutorInfo = {
       name: {
@@ -45,12 +55,38 @@ router.put(
       schedule,
       tutoringLink,
     };
-    await User.findByIdAndUpdate(req.params.id, {
+    await User.findByIdAndUpdate(req.user.id, {
       tutorInfo,
       isTutor: true,
     });
     res.send("Done!");
   }
 );
+
+router.put("/updateSubjects", auth, async (req, res) => {
+  try {
+    // Fetch user
+    let user = await User.findById(req.user.id);
+
+    // Check that user is tutor
+    if (!user.isTutor) {
+      return res.status(403).send("Access Denied");
+    }
+
+    // Update user
+    let subjects = req.body.subjects;
+    subjects = subjects.map((subject) => {
+      return mongoose.Types.ObjectId(subject);
+    });
+
+    await User.findByIdAndUpdate(req.user.id, {
+      "tutorInfo.subjects": subjects,
+    });
+    res.json("Done!");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+});
 
 module.exports = router;
