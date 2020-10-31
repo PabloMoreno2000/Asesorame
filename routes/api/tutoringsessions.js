@@ -51,6 +51,9 @@ router.post(
   }
 );
 
+// @route DELETE sessions/delete/:id
+// @desct Delete tutoring session by id
+// @access private
 router.delete("/delete/:id", auth, async (req, res) => {
   try {
     const session = await TS.findById(req.params.id);
@@ -62,6 +65,26 @@ router.delete("/delete/:id", auth, async (req, res) => {
 
     await TS.findByIdAndDelete(req.params.id);
     res.send("Tutoring session deleted");
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// @route GET sessions/details/:id
+// @desct Get details of tutoring session by id
+// @access private
+router.get("/details/:id", auth, async (req, res) => {
+  try {
+    let session = await TS.findById(req.params.id);
+    const userId = req.user.id;
+
+    if (userId !== session.tutor && userId !== session.student) {
+      return res.status(403).send("Access Denied");
+    }
+
+    session = await session.populate("tutor").populate("student");
+    res.json(session);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Server error");
