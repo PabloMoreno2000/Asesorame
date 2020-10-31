@@ -46,7 +46,6 @@ const UserSchema = new mongoose.Schema({
     },
     tutoringLink: {
       type: String,
-      required: true,
     },
   },
 });

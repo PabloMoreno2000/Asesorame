@@ -4,6 +4,7 @@ const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 const User = require("../../models/User");
 
+// TODO: Put this in a try/catch
 router.put(
   "/makeTutor/:id",
   [
@@ -48,5 +49,8 @@ router.put(
       tutorInfo,
       isTutor: true,
     });
+    res.send("Done!");
   }
 );
+
+module.exports = router;
