@@ -4,6 +4,7 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 const User = require("../../models/User");
+const Subject = require("../../models/Subject");
 
 // TODO: Put this in a try/catch
 router.put(
@@ -83,6 +84,23 @@ router.put("/updateSubjects", auth, async (req, res) => {
       "tutorInfo.subjects": subjects,
     });
     res.json("Done!");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+});
+
+router.get("/tutorDetails/:id", async (req, res) => {
+  try {
+    let user = await User.findById(req.params.id)
+      .populate("tutorInfo.subjects")
+      .select("-password")
+      .select("-username");
+
+    if (!user.isTutor) {
+      return res.status(403).send("Access Denied");
+    }
+    res.json(user);
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");

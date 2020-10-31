@@ -34,10 +34,8 @@ const UserSchema = new mongoose.Schema({
     // An array of references to the schema "subject"
     subjects: [
       {
-        subject: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "subject",
-        },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "subject",
       },
     ],
     schedule: {
