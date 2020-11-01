@@ -6,6 +6,9 @@ const auth = require("../../middleware/auth");
 const User = require("../../models/User");
 const Subject = require("../../models/Subject");
 
+// @route  PUT tutors/makeTutor
+// @desct  Makes the authenticated user a tutor
+// @access private
 // TODO: Put this in a try/catch
 router.put(
   "/makeTutor",
@@ -64,6 +67,9 @@ router.put(
   }
 );
 
+// @route  PUT tutors/updateSubjects
+// @desct  Receives an array of subjects for the auth user
+// @access private
 router.put("/updateSubjects", auth, async (req, res) => {
   try {
     // Fetch user
@@ -90,6 +96,35 @@ router.put("/updateSubjects", auth, async (req, res) => {
   }
 });
 
+// @route  PUT tutors/updateSchedule
+// @desct  Replace the schedule of the auth user
+// @access private
+router.put("/updateSchedule", auth, async (req, res) => {
+  try {
+    // Fetch user
+    let user = await User.findById(req.user.id);
+
+    // Check that user is tutor
+    if (!user.isTutor) {
+      return res.status(403).send("Access Denied");
+    }
+
+    // Update user
+    let newSchedule = req.body.schedule;
+
+    await User.findByIdAndUpdate(req.user.id, {
+      "tutorInfo.schedule": newSchedule,
+    });
+    res.json("Done!");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+});
+
+// @route  GET tutors/tutorDetails
+// @desct Gets details of auth user who's a tutor
+// @access private
 router.get("/tutorDetails/:id", async (req, res) => {
   try {
     let user = await User.findById(req.params.id)
