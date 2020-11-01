@@ -1,12 +1,15 @@
 import React, { Component } from "react";
+
+// Co
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 
-export default class SignIn extends Component {
+export default class SignUp extends Component {
   state = {
     user: "",
     password: "",
+    passwordConfirm: "",
   };
 
   onChange = (e) => {
@@ -17,6 +20,7 @@ export default class SignIn extends Component {
     e.preventDefault();
     console.log(this.state.user);
     console.log(this.state.password);
+    console.log(this.state.passwordConfirm);
 
     // do the call to the server to get user token
   };
@@ -25,7 +29,7 @@ export default class SignIn extends Component {
     return (
       <div style={{ width: "30%", margin: "20px auto" }}>
         <Card className="text-center">
-          <h2 style={{ marginTop: "15px" }}>Iniciar sesión</h2>
+          <h2 style={{ marginTop: "15px" }}>Crear cuenta</h2>
           <Card.Body>
             <Form onSubmit={this.onSubmit}>
               <Form.Group controlId="formBasicEmail">
@@ -45,6 +49,16 @@ export default class SignIn extends Component {
                   type="password"
                   name="password"
                   placeholder="Ingrese su contraseña"
+                />
+              </Form.Group>
+
+              <Form.Group controlId="formBasicPassword">
+                <Form.Control
+                  value={this.state.passwordConfirm}
+                  onChange={this.onChange}
+                  type="password"
+                  name="passwordConfirm"
+                  placeholder="Ingrese su contraseña nuevamente"
                 />
               </Form.Group>
               <Button variant="primary" type="submit">
