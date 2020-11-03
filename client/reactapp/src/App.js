@@ -6,8 +6,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 // Components
 //import SignIn from "./components/pages/SignIn";
-import SignUp from "./components/pages/SignUp";
-//import Home from "./components/pages/Home";
+//import SignUp from "./components/pages/SignUp";
+import Home from "./components/pages/Home";
 
 class App extends Component {
   state = {};
@@ -15,7 +15,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <SignUp />
+        <Home />
       </div>
     );
   }

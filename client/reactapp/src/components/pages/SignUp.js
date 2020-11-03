@@ -32,6 +32,7 @@ export default class SignUp extends Component {
 
     let token = "";
     try {
+      // Save token on local storage
       let resp = await API.users.createUser(username, password);
       token = resp.data.token;
       localStorage.setItem("x-auth-token", token);
