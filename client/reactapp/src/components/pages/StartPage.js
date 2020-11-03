@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import SubjectToolbar from "../makeTutoringSession/SubjectToolbar";
 
-export default class Home extends Component {
+export default class StartPage extends Component {
   state = {
     subjectId: "",
   };
@@ -19,7 +19,15 @@ export default class Home extends Component {
       <div className="container">
         <SubjectToolbar changeSubject={this.changeSubject}></SubjectToolbar>
         <Button variant="primary" type="submit" style={btnStyle}>
-          <Link style={linkStyle} to="/inicio">
+          <Link
+            style={linkStyle}
+            to={{
+              pathname: "/detalles",
+              state: {
+                subjectId: this.state.subjectId,
+              },
+            }}
+          >
             Buscar tutores
           </Link>
         </Button>
