@@ -47,6 +47,9 @@ export const API = {
     createUser: (username, password) =>
       db("POST", "/api/users/", { username, password }, false, {}),
   },
+  subjects: {
+    getAll: () => db("GET", "/api/subjects/getAll/", null, false, {}),
+  },
 };
 
 //export API;

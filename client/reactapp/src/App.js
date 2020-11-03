@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+
 // Styling
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "semantic-ui-css/semantic.min.css";
 
 // Components
 import SignIn from "./components/pages/SignIn";
 import SignUp from "./components/pages/SignUp";
 import Home from "./components/pages/Home";
+import StartPage from "./components/pages/StartPage";
 
 class App extends Component {
   state = {};
@@ -19,6 +22,7 @@ class App extends Component {
           <Route exact path="/" component={Home}></Route>
           <Route path="/signUp" component={SignUp}></Route>
           <Route path="/signIn" component={SignIn} />
+          <Route path="/inicio" component={StartPage} />
         </div>
       </Router>
     );

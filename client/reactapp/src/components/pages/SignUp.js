@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
+import { Link } from "react-router-dom";
 
 import { API } from "../../scripts/API";
 
@@ -80,7 +81,9 @@ export default class SignUp extends Component {
                 />
               </Form.Group>
               <Button variant="primary" type="submit">
-                Submit
+                <Link style={linkStyle} to="/inicio">
+                  Crear cuenta
+                </Link>
               </Button>
             </Form>
           </Card.Body>
@@ -89,3 +92,9 @@ export default class SignUp extends Component {
     );
   }
 }
+
+const linkStyle = {
+  color: "#fff",
+  textDecoration: "none",
+  margin: "auto",
+};

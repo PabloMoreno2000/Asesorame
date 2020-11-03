@@ -19,6 +19,7 @@ app.use("/api/users", require("./routes/api/users"));
 app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/sessions", require("./routes/api/tutoringsessions"));
 app.use("/api/tutors", require("./routes/api/tutors"));
+app.use("/api/subjects", require("./routes/api/subjects"));
 app.use("/admin/subjects", require("./routes/admin/subjects"));
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
