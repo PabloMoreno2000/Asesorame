@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import tutoring from "../../assets/tutoringdos.png";
+import { Link } from "react-router-dom";
 
 export default class Home extends Component {
   render() {
@@ -17,11 +18,15 @@ export default class Home extends Component {
               <strong>Encuentra a un tutor</strong>
             </Card.Text>
             <Button variant="primary" type="submit" style={btnStyle}>
-              Iniciar sesión
+              <Link style={linkStyle} to="/signIn">
+                Iniciar sesión
+              </Link>
             </Button>
             <br />
             <Button variant="primary" type="submit" style={btnStyle}>
-              Crear cuenta
+              <Link style={linkStyle} to="/signUp">
+                Crear cuenta
+              </Link>
             </Button>
           </Card.ImgOverlay>
         </Card>
@@ -41,3 +46,15 @@ const titleStyle = {
 };
 
 const phraseStyle = {};
+
+const linkStyle = {
+  color: "#fff",
+  textDecoration: "none",
+  margin: "auto",
+};
+
+/*
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+
+
+*/
