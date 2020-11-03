@@ -5,6 +5,7 @@ const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 const User = require("../../models/User");
 const Subject = require("../../models/Subject");
+const { response } = require("express");
 
 // @route  PUT tutors/makeTutor
 // @desct  Makes the authenticated user a tutor
@@ -124,7 +125,7 @@ router.put("/updateSchedule", auth, async (req, res) => {
 
 // @route  GET tutors/tutorDetails
 // @desct Gets details of auth user who's a tutor
-// @access private
+// @access public
 router.get("/tutorDetails/:id", async (req, res) => {
   try {
     let user = await User.findById(req.params.id)
@@ -136,6 +137,22 @@ router.get("/tutorDetails/:id", async (req, res) => {
       return res.status(403).send("Access Denied");
     }
     res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server error");
+  }
+});
+
+// @route  GET tutors/getAllBySubject
+// @desct Gets info of tutors who give a certain subject
+// @access public
+router.get("/getAllBySubject/:subjectId", async (req, res) => {
+  try {
+    const tutors = await User.find({
+      isTutor: true,
+      "tutorInfo.subjects": req.params.subjectId,
+    });
+    res.json(tutors);
   } catch (error) {
     console.error(error);
     res.status(500).send("Server error");
