@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 
-// Co
+// Components
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
+
+import { API } from "../../scripts/API";
 
 export default class SignUp extends Component {
   state = {
@@ -16,11 +18,26 @@ export default class SignUp extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onSubmit = (e) => {
+  onSubmit = async (e) => {
     e.preventDefault();
-    console.log(this.state.user);
-    console.log(this.state.password);
-    console.log(this.state.passwordConfirm);
+
+    const username = this.state.user;
+    const password = this.state.password;
+    const passwordConfirm = this.state.passwordConfirm;
+
+    if (password !== passwordConfirm) {
+      alert("Las constraseñas no coinciden");
+      return;
+    }
+
+    let token = "";
+    try {
+      let resp = await API.users.createUser(username, password);
+      token = resp.data.token;
+      localStorage.setItem("x-auth-token", token);
+    } catch (error) {
+      console.log(error);
+    }
 
     // do the call to the server to get user token
   };

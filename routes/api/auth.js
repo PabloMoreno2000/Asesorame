@@ -8,7 +8,7 @@ const config = require("config");
 const { check, validationResult } = require("express-validator/check");
 
 // @route  GET api/auth
-// @desct  Test route
+// @desct  Get info of auth user
 // @access Public/non-authentication/no-token
 // Passing auth will execute the middleware function that will be executed before the callback.
 // Given a JSON web token returns a user if the token is valid
