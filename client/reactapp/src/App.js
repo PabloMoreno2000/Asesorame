@@ -12,6 +12,7 @@ import SignUp from "./components/pages/SignUp";
 import Home from "./components/pages/Home";
 import StartPage from "./components/pages/StartPage";
 import ChooseTutor from "./components/pages/ChooseTutor";
+import Header from "./components/layout/Header";
 
 class App extends Component {
   state = {};
@@ -19,6 +20,7 @@ class App extends Component {
   render() {
     return (
       <Router>
+        <Header></Header>
         <div className="App">
           <Route exact path="/" component={Home}></Route>
           <Route path="/signUp" component={SignUp}></Route>

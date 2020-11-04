@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import img from "../../assets/profile.png";
+
 export default class TutorElement extends Component {
   render() {
     const tutorInfo = this.props.tutor.tutorInfo;
