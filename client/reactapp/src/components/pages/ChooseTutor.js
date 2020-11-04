@@ -34,6 +34,7 @@ export default class ChooseTutor extends Component {
     if (this.state.tutors) {
       return (
         <div className="container">
+          <h1>Tutores disponibles</h1>
           {this.state.tutors.map((tutor) => {
             return <TutorElement key={tutor._id} tutor={tutor}></TutorElement>;
           })}
