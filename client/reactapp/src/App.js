@@ -11,7 +11,7 @@ import SignIn from "./components/pages/SignIn";
 import SignUp from "./components/pages/SignUp";
 import Home from "./components/pages/Home";
 import StartPage from "./components/pages/StartPage";
-import ChooseSessionDetails from "./components/pages/ChooseSessionDetails";
+import ChooseTutor from "./components/pages/ChooseTutor";
 
 class App extends Component {
   state = {};
@@ -24,7 +24,7 @@ class App extends Component {
           <Route path="/signUp" component={SignUp}></Route>
           <Route path="/signIn" component={SignIn} />
           <Route path="/inicio" component={StartPage} />
-          <Route path="/detalles" component={ChooseSessionDetails} />
+          <Route path="/detalles" component={ChooseTutor} />
         </div>
       </Router>
     );

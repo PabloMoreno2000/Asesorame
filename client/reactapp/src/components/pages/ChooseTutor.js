@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import TutorElement from "../makeTutoringSession/TutorElement";
+
 import { API } from "../../scripts/API";
 
-export default class ChooseSessionDetails extends Component {
+export default class ChooseTutor extends Component {
   state = {
     subjectId: "",
-    tutors: [],
+    tutors: null,
   };
 
-  async componentDidMount() {
+  async componentWillMount() {
     const getTutorsBySubject = async (subject) => {
       let tutors = [];
       try {
@@ -29,8 +31,16 @@ export default class ChooseSessionDetails extends Component {
   }
 
   render() {
-    console.log(this.state.subjectId);
-    return <div className="container"></div>;
+    console.log(this.state.tutors);
+    if (this.state.tutors) {
+      return (
+        <div className="container">
+          <TutorElement tutor={this.state.tutors[0]}></TutorElement>
+        </div>
+      );
+    } else {
+      return <div>Loading.. please wait!</div>;
+    }
   }
 }
 
@@ -43,3 +53,9 @@ const linkStyle = {
 const btnStyle = {
   marginLeft: "10px",
 };
+
+/*
+return this.props.todos.map(todo => (
+    <TodoItem key={todo.id} todo={todo} markComplete={this.props.markComplete} deleteTodo={this.props.deleteTodo}/>
+  ))
+*/
