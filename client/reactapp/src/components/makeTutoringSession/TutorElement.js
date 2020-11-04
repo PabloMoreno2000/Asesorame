@@ -12,7 +12,7 @@ export default class TutorElement extends Component {
         <Card border="primary">
           <Card.Body>
             <div style={{ display: "flex", alignItems: "center" }}>
-              <img src={img} style={userImageStyle}></img>
+              <img src={img} style={userImageStyle} alt="Tutor"></img>
               <div style={{ marginLeft: "15px" }}>
                 <Card.Title style={{ textAlign: "left", color: "#6598CB" }}>
                   {tutorInfo.name.firstName + " " + tutorInfo.name.firstSurname}
