@@ -10,7 +10,7 @@ export default class TutorElement extends Component {
       <Card border="primary" style={{ width: "50rem" }}>
         <Card.Body>
           <Card.Title>
-            {tutorInfo.name.firstName + tutorInfo.name.firstSurname}
+            {tutorInfo.name.firstName + " " + tutorInfo.name.firstSurname}
           </Card.Title>
           <Card.Text>
             Some quick example text to build on the card title and make up the

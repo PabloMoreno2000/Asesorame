@@ -33,11 +33,11 @@ export default class ChooseTutor extends Component {
   render() {
     console.log(this.state.tutors);
     if (this.state.tutors) {
-      return (
+      return this.state.tutors.map((tutor) => (
         <div className="container">
-          <TutorElement tutor={this.state.tutors[0]}></TutorElement>
+          <TutorElement key={tutor._id} tutor={tutor}></TutorElement>
         </div>
-      );
+      ));
     } else {
       return <div>Loading.. please wait!</div>;
     }
