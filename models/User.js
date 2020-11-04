@@ -45,6 +45,10 @@ const UserSchema = new mongoose.Schema({
     tutoringLink: {
       type: String,
     },
+    sessionsGiven: {
+      type: Number,
+      default: 0,
+    },
   },
 });
 

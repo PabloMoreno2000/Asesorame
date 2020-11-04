@@ -7,7 +7,7 @@ export default class TutorElement extends Component {
     const tutorInfo = this.props.tutor.tutorInfo;
 
     return (
-      <Card border="primary" style={{ width: "50rem" }}>
+      <Card border="primary" style={{ width: "50rem", margin: "auto" }}>
         <Card.Body>
           <Card.Title style={{ textAlign: "left", color: "#6598CB" }}>
             {tutorInfo.name.firstName + " " + tutorInfo.name.firstSurname}
