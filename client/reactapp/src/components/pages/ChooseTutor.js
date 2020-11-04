@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import TutorElement from "../makeTutoringSession/TutorElement";
-
 import { API } from "../../scripts/API";
 
 export default class ChooseTutor extends Component {
@@ -33,11 +32,13 @@ export default class ChooseTutor extends Component {
   render() {
     console.log(this.state.tutors);
     if (this.state.tutors) {
-      return this.state.tutors.map((tutor) => (
+      return (
         <div className="container">
-          <TutorElement key={tutor._id} tutor={tutor}></TutorElement>
+          {this.state.tutors.map((tutor) => {
+            return <TutorElement key={tutor._id} tutor={tutor}></TutorElement>;
+          })}
         </div>
-      ));
+      );
     } else {
       return <div>Loading.. please wait!</div>;
     }
