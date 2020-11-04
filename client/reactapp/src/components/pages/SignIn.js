@@ -60,7 +60,7 @@ export default class SignIn extends Component {
                   placeholder="Ingrese su contraseña"
                 />
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button variant="primary">
                 <Link style={linkStyle} to="/inicio">
                   Iniciar sesión
                 </Link>

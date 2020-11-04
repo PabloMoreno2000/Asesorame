@@ -80,7 +80,7 @@ export default class SignUp extends Component {
                   placeholder="Ingrese su contraseña nuevamente"
                 />
               </Form.Group>
-              <Button variant="primary" type="submit">
+              <Button variant="primary">
                 <Link style={linkStyle} to="/inicio">
                   Crear cuenta
                 </Link>

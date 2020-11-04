@@ -4,8 +4,6 @@ const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 const User = require("../../models/User");
-const Subject = require("../../models/Subject");
-const { response } = require("express");
 
 // @route  PUT tutors/makeTutor
 // @desct  Makes the authenticated user a tutor
@@ -151,7 +149,11 @@ router.get("/getAllBySubject/:subjectId", async (req, res) => {
     const tutors = await User.find({
       isTutor: true,
       "tutorInfo.subjects": req.params.subjectId,
-    });
+    })
+      .select("-password")
+      .select("-date")
+      .select("-username")
+      .select("-isTutor");
     res.json(tutors);
   } catch (error) {
     console.error(error);

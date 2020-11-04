@@ -42,7 +42,10 @@ export const API = {
   tutoringSessions: {
     //createSession: (tutor, begins, subject, minutestime) => db("")
   },
-  tutors: {},
+  tutors: {
+    getAllBySubject: (subjectId) =>
+      db("GET", `/api/tutors/getAllBySubject/${subjectId}`, null, false, {}),
+  },
   users: {
     createUser: (username, password) =>
       db("POST", "/api/users/", { username, password }, false, {}),
