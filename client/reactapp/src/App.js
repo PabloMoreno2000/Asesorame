@@ -12,11 +12,12 @@ import SignUp from "./components/pages/SignUp";
 import Home from "./components/pages/Home";
 import StartPage from "./components/pages/StartPage";
 import ChooseTutor from "./components/pages/ChooseTutor";
+import BecomeTutor from "./components/pages/BecomeTutor";
 import Header from "./components/layout/Header";
 
 class App extends Component {
   state = {};
-
+  // To update state of header after authentication
   updateUser = () => {
     this.refs.header.updateUser();
   };
@@ -40,6 +41,7 @@ class App extends Component {
             }}
           />
           <Route path="/inicio" component={StartPage} />
+          <Route path="/hacerseTutor" component={BecomeTutor} />
           <Route path="/detalles" component={ChooseTutor} />
         </div>
       </Router>

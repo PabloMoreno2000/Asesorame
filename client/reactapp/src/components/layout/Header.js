@@ -18,7 +18,7 @@ export default class Header extends Component {
   updateUser = async () => {
     if (localStorage.getItem("x-auth-token")) {
       const user = await API.auth.getAuthUser();
-      this.setState({ user });
+      this.setState({ user: user.data });
     }
   };
 
@@ -28,6 +28,7 @@ export default class Header extends Component {
   };
 
   configureLinks = () => {
+    // If user is not authenticated
     if (!this.state.user) {
       return <React.Fragment></React.Fragment>;
     }
@@ -42,7 +43,7 @@ export default class Header extends Component {
             <Nav.Link href="/perfil" className="linkStyle">
               Perfil
             </Nav.Link>
-            <Nav.Link href="" className="linkStyle">
+            <Nav.Link href="/hacerseTutor" className="linkStyle">
               Panel de Tutor
             </Nav.Link>
           </Nav>
@@ -64,7 +65,7 @@ export default class Header extends Component {
             <Nav.Link href="/perfil" className="linkStyle">
               Perfil
             </Nav.Link>
-            <Nav.Link href="" className="linkStyle">
+            <Nav.Link href="/hacerseTutor" className="linkStyle">
               Convertirse en tutor
             </Nav.Link>
           </Nav>

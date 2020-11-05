@@ -15,18 +15,49 @@ export class SubjectToolbar extends Component {
     this.props.changeSubject(value);
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const getSubjects = async () => {
       let subjects = [];
       try {
         subjects = await API.subjects.getAll();
         this.setState({ subjectList: subjects.data });
+        this.filterSubjects();
       } catch (error) {
         console.log(error);
       }
     };
     getSubjects();
   }
+
+  deleteSubjectOption = (id) => {
+    const subjectToDelete = [
+      ...this.state.subjectList.filter((subject) => {
+        return subject._id == id;
+      }),
+    ];
+
+    this.setState({
+      subjectList: [
+        ...this.state.subjectList.filter((subject) => subject._id !== id),
+      ],
+    });
+    // Return the deleted subject with all the data
+    return subjectToDelete;
+  };
+
+  filterSubjects = () => {
+    if (
+      !this.props.subjectsToRemove ||
+      this.props.subjectsToRemove.length == 0
+    ) {
+      return;
+    }
+
+    let difference = this.state.subjectList.filter((subject) => {
+      return !this.props.subjectsToRemove.includes(subject._id);
+    });
+    this.setState({ subjectList: difference });
+  };
 
   render() {
     const subjectOptions = this.state.subjectList.map((subject) => {
