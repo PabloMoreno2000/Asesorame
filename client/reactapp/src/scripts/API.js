@@ -47,6 +47,14 @@ export const API = {
   tutors: {
     getAllBySubject: (subjectId) =>
       db("GET", `/api/tutors/getAllBySubject/${subjectId}`, null, false, {}),
+    updateSubjects: (subjectIdsList) =>
+      db(
+        "PUT",
+        "/api/tutors/updateSubjects",
+        { subjects: subjectIdsList },
+        true,
+        {}
+      ),
   },
   users: {
     createUser: (username, password) =>

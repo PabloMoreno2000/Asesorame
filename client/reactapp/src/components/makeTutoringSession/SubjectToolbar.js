@@ -45,6 +45,12 @@ export class SubjectToolbar extends Component {
     return subjectToDelete;
   };
 
+  addSubjectOption = (_id, name) => {
+    this.setState({
+      subjectList: [...this.state.subjectList, { _id, name }],
+    });
+  };
+
   filterSubjects = () => {
     if (
       !this.props.subjectsToRemove ||
@@ -84,8 +90,8 @@ export class SubjectToolbar extends Component {
 }
 
 const dropDownStyle = {
-  width: "50%",
-  margin: "10px auto",
+  width: "82%",
+  margin: "10px",
 };
 
 export default SubjectToolbar;

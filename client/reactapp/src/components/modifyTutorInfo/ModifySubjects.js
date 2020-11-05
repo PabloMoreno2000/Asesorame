@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import SubjectToolbar from "../makeTutoringSession/SubjectToolbar";
 import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import SubjectTag from "./SubjectTag";
 import { API } from "../../scripts/API";
+
 export default class ModifySubjects extends Component {
   state = {
     selectedSubjectIds: [],
@@ -19,6 +22,10 @@ export default class ModifySubjects extends Component {
       selectedSubjectIds: this.props.tutorSubjects,
       subjectIdNameDict: tempDict,
     });
+  };
+
+  saveSubjectsToDb = () => {
+    API.tutors.updateSubjects(this.state.selectedSubjectIds).then();
   };
 
   componentDidMount() {
@@ -40,14 +47,27 @@ export default class ModifySubjects extends Component {
           ...this.state.selectedSubjectIds,
           this.state.selectedId,
         ],
+        selectedId: null,
       });
       this.refs.toolbar.deleteSubjectOption(this.state.selectedId);
     }
   };
 
+  // Remove from tutor's subjects and add it to all the options
+  deleteChosenSubject = (id, subjectName) => {
+    this.setState({
+      selectedSubjectIds: [
+        ...this.state.selectedSubjectIds.filter(
+          (subjectId) => subjectId !== id
+        ),
+      ],
+    });
+    this.refs.toolbar.addSubjectOption(id, subjectName);
+  };
+
   //Delete tutor's subjects from dropdown
   deleteSubjects = () => {
-    this.state.selectedSubjectIds.map((subjectId) => {
+    this.state.selectedSubjectIds.forEach((subjectId) => {
       this.refs.toolbar.deleteSubjectOption(subjectId);
     });
   };
@@ -61,11 +81,10 @@ export default class ModifySubjects extends Component {
     console.log(this.state.selectedSubjectIds);
     if (this.state.subjectIdNameDict) {
       return (
-        <div className="container">
-          <div>
-            {this.state.selectedSubjectIds.map((subjectId) => {
-              return <p>{this.state.subjectIdNameDict[subjectId]}</p>;
-            })}
+        <div>
+          <div style={{ textAlign: "left" }}>
+            <h1>Materias</h1>
+            <p>Agrega las materias para las cuales podrás impartir asesorías</p>
           </div>
           <SubjectToolbar
             ref="toolbar"
@@ -80,6 +99,26 @@ export default class ModifySubjects extends Component {
           >
             Agregar materia
           </Button>
+          <h3 style={{ textAlign: "left" }}>Materias seleccionadas</h3>
+          <div style={tagContainerStyle}>
+            {this.state.selectedSubjectIds.map((subjectId) => {
+              return (
+                <SubjectTag
+                  deleteSubject={this.deleteChosenSubject}
+                  subjectName={this.state.subjectIdNameDict[subjectId]}
+                  subjectId={subjectId}
+                ></SubjectTag>
+              );
+            })}
+          </div>
+          <div style={divLineStyle}></div>
+          <Button
+            variant="primary"
+            style={btnStyle}
+            onClick={this.saveSubjectsToDb}
+          >
+            Guardar materias
+          </Button>
         </div>
       );
     } else {
@@ -89,6 +128,18 @@ export default class ModifySubjects extends Component {
   }
 }
 
+const tagContainerStyle = {
+  margin: "10px",
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "left",
+};
+
 const btnStyle = {
   marginLeft: "10px",
+};
+
+const divLineStyle = {
+  borderTop: "solid 2px #000",
+  marginBottom: "10px",
 };

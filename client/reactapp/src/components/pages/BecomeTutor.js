@@ -40,7 +40,7 @@ export default class BecomeTutor extends Component {
   render() {
     if (this.state.tutor && this.state.subjects) {
       return (
-        <div style={{ width: "30%", margin: "20px auto" }}>
+        <div style={{ width: "60%", margin: "20px auto" }}>
           <ModifySubjects
             allSubjects={this.state.subjects}
             tutorSubjects={this.state.tutor.tutorInfo.subjects}
@@ -58,18 +58,3 @@ const linkStyle = {
   textDecoration: "none",
   margin: "auto",
 };
-
-/*
-for (let quiz of responseJSON){
-  $("#quizList").append(`<li class='quiz'>
-                <h4>${quiz.quizTitle}</h4>
-                <p><span>By: </span> ${quiz.userName}</p>
-                <p><span>Tags: </span><span class="tag"> ${quiz.quizTags.join('</span><span class="tag">')}</span></p>
-                <button class='takeQuizBtn waves-effect waves-light btn' id='${quiz._id}'>Take quiz!</button>
-                </li>`); 
-}
-
-return this.props.todos.map(todo => (
-    <TodoItem key={todo.id} todo={todo} markComplete={this.props.markComplete} deleteTodo={this.props.deleteTodo}/>
-    ))
-*/

@@ -1,0 +1,15 @@
+.tagStyle {
+  margin: 5px;
+  padding: 8px;
+  background: #007bff;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.iconStyle {
+  margin-left: 5px;
+}
+
+.iconStyle:hover {
+  cursor: pointer;
+}
