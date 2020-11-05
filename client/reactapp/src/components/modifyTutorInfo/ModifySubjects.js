@@ -25,7 +25,9 @@ export default class ModifySubjects extends Component {
   };
 
   saveSubjectsToDb = () => {
-    API.tutors.updateSubjects(this.state.selectedSubjectIds).then();
+    API.tutors
+      .updateSubjects(this.state.selectedSubjectIds)
+      .then(alert("Materias actualizadas"));
   };
 
   componentDidMount() {
