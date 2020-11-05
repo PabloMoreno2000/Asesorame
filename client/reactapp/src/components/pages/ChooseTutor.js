@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import TutorElement from "../makeTutoringSession/TutorElement";
 import SubjectToolbar from "../makeTutoringSession/SubjectToolbar";
@@ -54,7 +53,6 @@ export default class ChooseTutor extends Component {
   }
 
   render() {
-    console.log(this.state.tutors);
     return (
       <div className="container">
         <div>
@@ -74,12 +72,6 @@ export default class ChooseTutor extends Component {
     );
   }
 }
-
-const linkStyle = {
-  color: "#fff",
-  textDecoration: "none",
-  margin: "auto",
-};
 
 const btnStyle = {
   marginLeft: "10px",

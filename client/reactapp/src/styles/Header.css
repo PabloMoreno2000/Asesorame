@@ -10,3 +10,11 @@
 .title {
   font-size: 25px;
 }
+
+.btnLinkStyle {
+  color: #ffffff;
+}
+
+.btnLinkStyle:hover {
+  text-decoration: none;
+}

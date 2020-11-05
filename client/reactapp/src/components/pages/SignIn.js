@@ -18,8 +18,6 @@ export default class SignIn extends Component {
 
   onSubmit = async (e) => {
     e.preventDefault();
-    console.log(this.state.user);
-    console.log(this.state.password);
 
     let token = "";
     try {
@@ -29,6 +27,7 @@ export default class SignIn extends Component {
       );
       token = resp.data.token;
       localStorage.setItem("x-auth-token", token);
+      this.props.updateUser();
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +39,7 @@ export default class SignIn extends Component {
         <Card className="text-center">
           <h2 style={{ marginTop: "15px" }}>Iniciar sesión</h2>
           <Card.Body>
-            <Form onSubmit={this.onSubmit}>
+            <Form>
               <Form.Group controlId="formBasicEmail">
                 <Form.Control
                   value={this.state.user}
@@ -60,7 +59,7 @@ export default class SignIn extends Component {
                   placeholder="Ingrese su contraseña"
                 />
               </Form.Group>
-              <Button variant="primary">
+              <Button onClick={this.onSubmit} variant="primary">
                 <Link style={linkStyle} to="/inicio">
                   Iniciar sesión
                 </Link>

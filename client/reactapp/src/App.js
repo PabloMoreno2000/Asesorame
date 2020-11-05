@@ -17,14 +17,28 @@ import Header from "./components/layout/Header";
 class App extends Component {
   state = {};
 
+  updateUser = () => {
+    this.refs.header.updateUser();
+  };
+
   render() {
     return (
       <Router>
-        <Header></Header>
         <div className="App">
+          <Header ref="header"></Header>
           <Route exact path="/" component={Home}></Route>
-          <Route path="/signUp" component={SignUp}></Route>
-          <Route path="/signIn" component={SignIn} />
+          <Route
+            path="/signUp"
+            render={(props) => {
+              return <SignUp updateUser={this.updateUser} />;
+            }}
+          />
+          <Route
+            path="/signIn"
+            render={(props) => {
+              return <SignIn updateUser={this.updateUser} />;
+            }}
+          />
           <Route path="/inicio" component={StartPage} />
           <Route path="/detalles" component={ChooseTutor} />
         </div>

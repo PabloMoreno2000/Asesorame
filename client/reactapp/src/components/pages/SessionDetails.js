@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import Button from "react-bootstrap/Button";
+//import { Link } from "react-router-dom";
+//import Button from "react-bootstrap/Button";
 
 export default class ChooseSessionDetails extends Component {
   state = {
@@ -19,7 +19,7 @@ export default class ChooseSessionDetails extends Component {
   }
 }
 
-const linkStyle = {
+/*const linkStyle = {
   color: "#fff",
   textDecoration: "none",
   margin: "auto",
@@ -27,4 +27,4 @@ const linkStyle = {
 
 const btnStyle = {
   marginLeft: "10px",
-};
+};*/

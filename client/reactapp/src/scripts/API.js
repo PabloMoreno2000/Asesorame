@@ -35,7 +35,9 @@ function db(requestType, url, data, requiresAuth, headers) {
 
 export const API = {
   auth: {
-    getAuthUser: () => db("GET", "/api/users/", null, true, {}),
+    //traer el usuario ya autenticado
+    getAuthUser: () => db("GET", "/api/auth/", null, true, {}),
+    //autenticar usuario, regresa su token
     postAuthUser: (username, password) =>
       db("POST", "/api/auth/", { username, password }, false, {}),
   },

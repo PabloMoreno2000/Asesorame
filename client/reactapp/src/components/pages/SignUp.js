@@ -37,6 +37,7 @@ export default class SignUp extends Component {
       let resp = await API.users.createUser(username, password);
       token = resp.data.token;
       localStorage.setItem("x-auth-token", token);
+      this.props.updateUser();
     } catch (error) {
       console.log(error);
     }
@@ -50,7 +51,7 @@ export default class SignUp extends Component {
         <Card className="text-center">
           <h2 style={{ marginTop: "15px" }}>Crear cuenta</h2>
           <Card.Body>
-            <Form onSubmit={this.onSubmit}>
+            <Form>
               <Form.Group controlId="formBasicEmail">
                 <Form.Control
                   value={this.state.user}
@@ -80,7 +81,7 @@ export default class SignUp extends Component {
                   placeholder="Ingrese su contraseña nuevamente"
                 />
               </Form.Group>
-              <Button variant="primary">
+              <Button onClick={this.onSubmit} variant="primary">
                 <Link style={linkStyle} to="/inicio">
                   Crear cuenta
                 </Link>
