@@ -1,19 +1,21 @@
 const express = require("express");
 const router = express.Router();
+const mongoose = require("mongoose");
 const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 const TS = require("../../models/TutoringSession");
 const User = require("../../models/User");
+const Subject = require("../../models/Subject");
 
+// Tutor opens the slot to be yet adquired by a student
+// Now tutor creates the session
 router.post(
   "/create",
   [
     auth,
     [
-      check("tutor", "Favor de ingresar un tutor").exists(),
       check("begins", "Favor de incluir hora de inicio").exists(),
-      check("subject", "Favor de incluir la materia").exists(),
-      check("minutestime", "Favor de incluir la duracion").exists(),
+      check("ends", "Favor de incluir la duracion").exists(),
     ],
   ],
   async function (req, res) {
@@ -25,14 +27,12 @@ router.post(
     }
 
     try {
-      const { tutor, begins, subject, minutestime } = req.body;
-      const student = req.user.id;
+      const { begins, ends } = req.body;
+      const tutor = req.user.id;
       let newTS = new TS({
         tutor,
-        student,
         begins,
-        minutestime,
-        subject,
+        ends,
       });
 
       try {
@@ -42,6 +42,7 @@ router.post(
         res.status(500).send("Something went wrong with the DB, try again.");
       }
 
+      // TODO: Move this when students makes the move
       // Increase tutor's sessions counter by one
       await User.findByIdAndUpdate(tutor, {
         $inc: { "tutorInfo.sessionsGiven": 1 },
@@ -54,7 +55,32 @@ router.post(
   }
 );
 
-// Meme.findOneAndUpdate({_id :id}, {$inc : {'post.likes' : 1}}).exec(...);
+router.put(
+  "/scheduleWithStudent",
+  [
+    auth,
+    [
+      check("sessionId", "Please send valid session id").isMongoId(),
+      check("subjectId", "Please specify a subject key").isMongoId(),
+    ],
+  ],
+  async (req, res) => {
+    let session = {};
+    try {
+      const { sessionId, subjectId } = req.body;
+      const subject = await Subject.findById(subjectId);
+      session = await TS.findByIdAndUpdate(mongoose.Types.ObjectId(sessionId), {
+        student: mongoose.Types.ObjectId(req.user.id),
+        subject: mongoose.Types.ObjectId(subjectId),
+        subjectName: subject.name,
+        userSeparated: Date.now(),
+      });
+    } catch (error) {
+      return res.status(500).send("Server error");
+    }
+    res.json(session);
+  }
+);
 
 // @route DELETE sessions/delete/:id
 // @desct Delete tutoring session by id
@@ -69,9 +95,9 @@ router.delete("/delete/:id", auth, async (req, res) => {
     }
 
     // Decrease tutor's sessions counter by one
-    await User.findByIdAndUpdate(session.tutor, {
+    /*await User.findByIdAndUpdate(session.tutor, {
       $inc: { "tutorInfo.sessionsGiven": -1 },
-    });
+    });*/
 
     await TS.findByIdAndDelete(req.params.id);
     res.send("Tutoring session deleted");
@@ -93,7 +119,10 @@ router.get("/details/:id", auth, async (req, res) => {
       return res.status(403).send("Access Denied");
     }
 
-    session = await session.populate("tutor").populate("student");
+    session = await session.populate("tutor");
+    if (session.student) {
+      session = await session.populate("student");
+    }
     res.json(session);
   } catch (error) {
     console.error(error.message);

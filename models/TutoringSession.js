@@ -10,11 +10,10 @@ const TutoringSessionSchema = new mongoose.Schema({
   student: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
-    required: true,
   },
   // How many minutes the session has
-  minutestime: {
-    type: Number,
+  ends: {
+    type: Date,
     required: true,
   },
   begins: {
@@ -24,11 +23,13 @@ const TutoringSessionSchema = new mongoose.Schema({
   subject: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "subject",
-    required: true,
   },
-  created: {
+  subjectName: {
+    type: String,
+    default: "",
+  },
+  userSepareted: {
     type: Date,
-    default: Date.now,
   },
 });
 
