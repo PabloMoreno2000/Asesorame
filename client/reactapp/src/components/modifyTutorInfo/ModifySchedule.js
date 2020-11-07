@@ -39,6 +39,7 @@ export default class ModifySchedule extends Component {
   };
 
   saveSessionsToDb = () => {
+    console.log(this.state.events);
     API.tutoringSessions
       .postTutorSessions(this.state.events)
       .then(alert("Espacios creados exitosamente"));

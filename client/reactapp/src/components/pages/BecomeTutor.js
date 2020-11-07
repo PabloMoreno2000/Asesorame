@@ -40,6 +40,16 @@ export default class BecomeTutor extends Component {
       let resp = [];
       try {
         resp = await API.tutoringSessions.getSessionsByTutor();
+        resp.data = resp.data.map((session) => {
+          return {
+            _id: session._id,
+            begins: new Date(session.begins),
+            ends: new Date(session.ends),
+            subjectName: session.subjectName,
+            tutor: session.tutor,
+          };
+        });
+        console.log(typeof resp.data[0].begins);
       } catch (error) {
         console.log(error);
       }

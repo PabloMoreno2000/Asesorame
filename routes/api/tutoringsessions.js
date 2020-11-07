@@ -188,13 +188,13 @@ router.post(
     let sessions = [];
 
     sessionsArray.forEach(async (session) => {
-      const newSession = new TutoringSession({
+      const newSession = new TS({
         tutor: session.tutor,
         begins: session.begins,
         ends: session.ends,
       });
       await newSession.save();
-      sessions.push(newSubject);
+      sessions.push(newSession);
     });
 
     res.status(200).json(sessions);
