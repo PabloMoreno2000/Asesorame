@@ -182,11 +182,15 @@ router.get("/getSessionsByUser", auth, async (req, res) => {
 
 router.post(
   "/createBatch",
-  [check("sessions", "Insert array of sessions").isArray()],
+  [auth, [check("sessions", "Insert array of sessions").isArray()]],
   async (req, res) => {
     let sessionsArray = req.body.sessions;
     let sessions = [];
 
+    // Delete blocks of tutor
+    await TS.deleteMany({ tutor: req.user.id });
+
+    // Add new blocks for tutor
     sessionsArray.forEach(async (session) => {
       const newSession = new TS({
         tutor: session.tutor,

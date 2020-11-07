@@ -3,11 +3,14 @@ import React, { Component } from "react";
 import { Calendar, Views } from "react-big-calendar";
 import localizer from "react-big-calendar/lib/localizers/moment";
 import moment from "moment";
+import "moment/locale/es-mx";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
-const momentLocalizer = localizer(moment);
+moment.locale("es-mx");
 console.log(moment().format());
+
+const momentLocalizer = localizer(moment);
 
 export default class UserCalendar extends Component {
   state = {
@@ -64,6 +67,14 @@ export default class UserCalendar extends Component {
           titleAccessor="subjectName"
           startAccessor="begins"
           endAccessor="ends"
+          messages={{
+            today: "Hoy",
+            previous: "Anterior",
+            next: "Siguiente",
+            month: "Mes",
+            week: "Semana",
+            day: "Día",
+          }}
         />
       </div>
     );

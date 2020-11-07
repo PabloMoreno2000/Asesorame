@@ -54,6 +54,13 @@ export default class ModifySchedule extends Component {
       console.log(this.state.events);
       return (
         <div>
+          <div style={{ textAlign: "left", marginTop: "30px" }}>
+            <h1>Espacios para asesorías</h1>
+            <p>
+              Utiliza el calendario para crear nuevos espacios de asesoría. Haz
+              clic sobre un espacio ya creado para eliminarlo.
+            </p>
+          </div>
           <UserCalendar
             selectable={true}
             events={this.state.events}
