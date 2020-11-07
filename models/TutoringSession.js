@@ -28,7 +28,7 @@ const TutoringSessionSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  userSepareted: {
+  userSeparated: {
     type: Date,
   },
 });

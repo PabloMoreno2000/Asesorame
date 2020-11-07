@@ -42,7 +42,30 @@ export const API = {
       db("POST", "/api/auth/", { username, password }, false, {}),
   },
   tutoringSessions: {
-    //createSession: (tutor, begins, subject, minutestime) => db("")
+    create: (begins, ends) =>
+      db("POST", "/api/sessions/create/", { begins, ends }, true, {}),
+    scheduleWithStudent: (sessionId, subjectId) =>
+      db(
+        "PUT",
+        "/api/sessions/scheduleWithStudent/",
+        { sessionId, subjectId },
+        true,
+        {}
+      ),
+    getSessionsByTutor: () =>
+      db("GET", "/api/sessions/getSessionsByTutor", null, true, {}),
+    getAvailableSessionsWithTutor: (tutorId) =>
+      db(
+        "GET",
+        `/api/sessions/getAvailableSessionsWithTutor/${tutorId}`,
+        null,
+        false,
+        {}
+      ),
+    getSessionsByUser: () =>
+      db("GET", "/api/sessions/getSessionsByUser", null, true, {}),
+    postTutorSessions: (sessions) =>
+      db("POST", "/api/sessions/createBatch", { sessions }, false, {}),
   },
   tutors: {
     getAllBySubject: (subjectId) =>

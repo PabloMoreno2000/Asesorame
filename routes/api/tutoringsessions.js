@@ -130,4 +130,75 @@ router.get("/details/:id", auth, async (req, res) => {
   }
 });
 
+// @route GET sessions/getSessionsByTutor
+// @desct Gets all sesions where auth tutor is involved
+// @access private
+router.get("/getSessionsByTutor", auth, async (req, res) => {
+  try {
+    const sessions = await TS.find({ tutor: req.user.id })
+      .populate("tutor", ["username", "tutorInfo"])
+      .populate("student", "username");
+    res.json(sessions);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server error");
+  }
+});
+
+// @route GET sessions/getAvailableSessionsWithTutor
+// @desct Gets all sesions where a tutor is available
+// @access public
+router.get("/getAvailableSessionsWithTutor/:tutorId", async (req, res) => {
+  try {
+    const sessions = await TS.find({
+      tutor: req.params.tutorId,
+      student: { $exists: false },
+    })
+      .populate("tutor", ["username", "tutorInfo"])
+      .populate("student", "username");
+    res.json(sessions);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server error");
+  }
+});
+
+// @route GET sessions/getSessionsByUser
+// @desct Gets all sesions where auth user is student or tutor
+// @access private
+router.get("/getSessionsByUser", auth, async (req, res) => {
+  try {
+    const sessions = await TS.find({
+      $or: [{ tutor: req.user.id }, { student: req.user.id }],
+    })
+      .populate("tutor", ["username", "tutorInfo"])
+      .populate("student", "username");
+    res.json(sessions);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Server error");
+  }
+});
+
+router.post(
+  "/createBatch",
+  [check("sessions", "Insert array of sessions").isArray()],
+  async (req, res) => {
+    let sessionsArray = req.body.sessions;
+    let sessions = [];
+
+    sessionsArray.forEach(async (session) => {
+      const newSession = new TutoringSession({
+        tutor: session.tutor,
+        begins: session.begins,
+        ends: session.ends,
+      });
+      await newSession.save();
+      sessions.push(newSubject);
+    });
+
+    res.status(200).json(sessions);
+  }
+);
+
 module.exports = router;

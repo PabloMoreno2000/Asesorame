@@ -80,7 +80,6 @@ export default class ModifySubjects extends Component {
   // Display remaining subjects on a dropdown
 
   render() {
-    console.log(this.state.selectedSubjectIds);
     if (this.state.subjectIdNameDict) {
       return (
         <div>
