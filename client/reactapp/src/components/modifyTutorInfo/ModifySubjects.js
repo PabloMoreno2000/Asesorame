@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import SubjectToolbar from "../makeTutoringSession/SubjectToolbar";
 import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
 import SubjectTag from "./SubjectTag";
 import { API } from "../../scripts/API";
 

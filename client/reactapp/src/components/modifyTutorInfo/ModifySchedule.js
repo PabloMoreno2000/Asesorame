@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import UserCalendar from "../modifyTutorInfo/UserCalendar";
-import Button from "react-bootstrap/Button";
 import { API } from "../../scripts/API";
 
 export default class ModifySchedule extends Component {
@@ -23,16 +22,17 @@ export default class ModifySchedule extends Component {
       ends: end,
       subjectName: "Asesoria",
     };
+    console.log(newTutoringSession.subjectName)
     this.setState({
       events: [...this.state.events, newTutoringSession],
     });
   };
 
-  removeEvent = ({ begins, ends }) => {
+  removeEvent = ({ _id }) => {
     this.setState({
       events: [
         ...this.state.events.filter(
-          (event) => event.begins !== begins && event.ends !== ends
+          (event) => event._id !== _id
         ),
       ],
     });

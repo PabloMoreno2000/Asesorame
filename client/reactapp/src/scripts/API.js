@@ -64,7 +64,7 @@ export const API = {
       ),
     getSessionsByUser: () =>
       db("GET", "/api/sessions/getSessionsByUser", null, true, {}),
-    postTutorSessions: (sessions) =>
+    postTutorSessions: (sessions) => 
       db("POST", "/api/sessions/createBatch", { sessions }, true, {}),
   },
   tutors: {

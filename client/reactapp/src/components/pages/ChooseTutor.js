@@ -81,8 +81,14 @@ export default class ChooseTutor extends Component {
     const subjectId = this.state.subjectId
       ? this.state.subjectId
       : this.props.location.state.subjectId;
-    const tutors = await this.getTutorsBySubject(subjectId);
-    this.setState({ tutors });
+    let tutors = await this.getTutorsBySubject(subjectId);
+    console.log("BEFORE");
+    console.log(tutors);
+    console.log("USER ID: " + this.props.location.state.userId);
+    tutors = tutors.filter(tutor => tutor._id !== this.props.location.state.userId);
+    console.log("AFTER");
+    console.log(tutors);
+    this.setState({ tutors: tutors });
   };
 
   setSelectedTutor = async (tutorId) => {
@@ -117,7 +123,7 @@ export default class ChooseTutor extends Component {
     this.setState({ modalShow: show });
   };
 
-  onSelectEvent = ({ begins, ends, _id }) => {
+  onSelectEvent = ({ _id }) => {
     console.log(_id);
     this.setState({ selectedEventId: _id });
     this.setModalShow(true);
@@ -168,13 +174,6 @@ export default class ChooseTutor extends Component {
     );
   }
 }
-
-/*
-        <MyVerticallyCenteredModal
-          show={this.state.modalShow}
-          onHide={() => this.setModalShow(false)}
-        />
-*/
 
 const btnStyle = {
   marginLeft: "10px",

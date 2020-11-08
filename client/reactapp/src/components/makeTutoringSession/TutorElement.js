@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import img from "../../assets/profile.png";
@@ -44,12 +43,6 @@ export default class TutorElement extends Component {
 const containerStyle = {
   width: "50rem",
   margin: "20px auto",
-};
-
-const linkStyle = {
-  color: "#fff",
-  textDecoration: "none",
-  margin: "auto",
 };
 
 const btnStyle = {

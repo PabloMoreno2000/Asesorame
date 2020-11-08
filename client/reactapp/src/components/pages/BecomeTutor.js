@@ -4,8 +4,6 @@ import Form from "react-bootstrap/Form";
 //import Card from "react-bootstrap/Card";
 import ModifySubjects from "../modifyTutorInfo/ModifySubjects";
 import ModifySchedule from "../modifyTutorInfo/ModifySchedule";
-
-import { Link } from "react-router-dom";
 import { API } from "../../scripts/API";
 
 export default class BecomeTutor extends Component {
@@ -48,7 +46,6 @@ export default class BecomeTutor extends Component {
       let resp = [];
       try {
         resp = await API.tutoringSessions.getSessionsByTutor();
-        console.log(typeof resp.data[0].begins);
       } catch (error) {
         console.log(error);
       }
@@ -122,12 +119,6 @@ export default class BecomeTutor extends Component {
 
 const inputStyle = {
   marginBottom: "20px",
-};
-
-const linkStyle = {
-  color: "#fff",
-  textDecoration: "none",
-  margin: "auto",
 };
 
 const btnStyle = {

@@ -32,7 +32,7 @@ export class SubjectToolbar extends Component {
   deleteSubjectOption = (id) => {
     const subjectToDelete = [
       ...this.state.subjectList.filter((subject) => {
-        return subject._id == id;
+        return subject._id === id;
       }),
     ];
 
@@ -54,7 +54,7 @@ export class SubjectToolbar extends Component {
   filterSubjects = () => {
     if (
       !this.props.subjectsToRemove ||
-      this.props.subjectsToRemove.length == 0
+      this.props.subjectsToRemove.length === 0
     ) {
       return;
     }

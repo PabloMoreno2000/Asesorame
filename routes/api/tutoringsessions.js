@@ -192,8 +192,10 @@ router.post(
 
     // Add new blocks for tutor
     sessionsArray.forEach(async (session) => {
+      console.log(session.subjectName);
       const newSession = new TS({
         tutor: session.tutor,
+        subjectName: session.subjectName,
         begins: session.begins,
         ends: session.ends,
       });
