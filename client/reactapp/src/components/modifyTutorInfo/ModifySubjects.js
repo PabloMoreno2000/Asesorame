@@ -24,10 +24,8 @@ export default class ModifySubjects extends Component {
     });
   };
 
-  saveSubjectsToDb = () => {
-    API.tutors
-      .updateSubjects(this.state.selectedSubjectIds)
-      .then(alert("Materias actualizadas"));
+  saveSubjectsToDb = async () => {
+    await API.tutors.updateSubjects(this.state.selectedSubjectIds);
   };
 
   componentDidMount() {
@@ -113,13 +111,6 @@ export default class ModifySubjects extends Component {
             })}
           </div>
           <div style={divLineStyle}></div>
-          <Button
-            variant="primary"
-            style={btnStyle}
-            onClick={this.saveSubjectsToDb}
-          >
-            Guardar materias
-          </Button>
         </div>
       );
     } else {

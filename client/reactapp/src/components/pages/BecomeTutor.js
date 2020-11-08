@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-//import Button from "react-bootstrap/Button";
-//import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 //import Card from "react-bootstrap/Card";
 import ModifySubjects from "../modifyTutorInfo/ModifySubjects";
 import ModifySchedule from "../modifyTutorInfo/ModifySchedule";
@@ -13,6 +13,11 @@ export default class BecomeTutor extends Component {
     subjects: null,
     tutor: null,
     events: null,
+    link: "https://itesm.zoom.us/j/2958133284",
+  };
+
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   async componentWillMount() {
@@ -34,6 +39,9 @@ export default class BecomeTutor extends Component {
         console.log(error);
       }
       this.setState({ tutor: resp.data });
+      if (resp.data.tutorInfo.tutoringLink) {
+        this.setState({ link: resp.data.tutorInfo.tutoringLink });
+      }
     };
 
     const getAllSessions = async () => {
@@ -61,18 +69,58 @@ export default class BecomeTutor extends Component {
     await getAllSessions();
   }
 
+  saveInfo = async () => {
+    if (this.state.tutor) {
+      try {
+        await API.tutors.saveLink(this.state.link);
+      } catch (error) {
+        alert("Favor de ingresar una liga válida");
+        console.log(error);
+        return;
+      }
+    }
+    await this.refs.modifySubjects.saveSubjectsToDb();
+    await this.refs.modifySchedule.saveSessionsToDb();
+    alert("Información guardada exitosamente");
+  };
+
   render() {
-    if (this.state.tutor && this.state.subjects && this.state.events) {
+    if (
+      this.state.tutor &&
+      this.state.subjects &&
+      this.state.events &&
+      this.state.link
+    ) {
       return (
         <div style={{ width: "60%", margin: "20px auto" }}>
+          <div>
+            <div style={{ textAlign: "left" }}>
+              <h1>Liga para asesorías</h1>
+              <p>Pon tu nueva liga para dar asesorías</p>
+              <Form.Control
+                style={inputStyle}
+                value={this.state.link}
+                onChange={this.onChange}
+                type="text"
+                name="link"
+                placeholder="Ingrese su liga aquí"
+              />
+            </div>
+            <div style={divLineStyle}></div>
+          </div>
           <ModifySubjects
             allSubjects={this.state.subjects}
             tutorSubjects={this.state.tutor.tutorInfo.subjects}
+            ref="modifySubjects"
           />
           <ModifySchedule
             tutorId={this.state.tutor._id}
             events={this.state.events}
+            ref="modifySchedule"
           />
+          <Button variant="primary" style={btnStyle} onClick={this.saveInfo}>
+            Guardar información
+          </Button>
         </div>
       );
     } else {
@@ -81,8 +129,21 @@ export default class BecomeTutor extends Component {
   }
 }
 
+const inputStyle = {
+  marginBottom: "20px",
+};
+
 const linkStyle = {
   color: "#fff",
   textDecoration: "none",
   margin: "auto",
+};
+
+const btnStyle = {
+  marginLeft: "10px",
+};
+
+const divLineStyle = {
+  borderTop: "solid 2px #000",
+  marginBottom: "20px",
 };

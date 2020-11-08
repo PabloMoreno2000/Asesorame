@@ -38,11 +38,8 @@ export default class ModifySchedule extends Component {
     });
   };
 
-  saveSessionsToDb = () => {
-    console.log(this.state.events);
-    API.tutoringSessions
-      .postTutorSessions(this.state.events)
-      .then(alert("Espacios creados exitosamente"));
+  saveSessionsToDb = async () => {
+    await API.tutoringSessions.postTutorSessions(this.state.events);
   };
 
   componentWillMount() {
@@ -65,17 +62,10 @@ export default class ModifySchedule extends Component {
             selectable={true}
             events={this.state.events}
             tutorId={this.state.tutorId}
-            addEvent={this.addEvent}
-            removeEvent={this.removeEvent}
+            onSelectSlot={this.addEvent}
+            onSelectEvent={this.removeEvent}
           />
           <div style={divLineStyle}></div>
-          <Button
-            variant="primary"
-            style={btnStyle}
-            onClick={this.saveSessionsToDb}
-          >
-            Guardar espacios
-          </Button>
         </div>
       );
     } else {
@@ -83,10 +73,6 @@ export default class ModifySchedule extends Component {
     }
   }
 }
-
-const btnStyle = {
-  marginLeft: "10px",
-};
 
 const divLineStyle = {
   borderTop: "solid 2px #000",

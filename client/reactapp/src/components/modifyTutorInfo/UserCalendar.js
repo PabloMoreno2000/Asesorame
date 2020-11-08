@@ -14,17 +14,11 @@ const momentLocalizer = localizer(moment);
 
 export default class UserCalendar extends Component {
   state = {
-    events: [],
     selectable: false,
     // When slots are created
     onSelectSlot: () => {},
     // When a user clicks a existing slot
     onSelectEvent: () => {},
-  };
-
-  createSlot = ({ start, end }) => {
-    console.log(start);
-    console.log(end);
   };
 
   componentWillMount() {
@@ -33,18 +27,19 @@ export default class UserCalendar extends Component {
       this.setState({
         // Create and add new event in parent component
         onSelectSlot: ({ start, end }) => {
-          this.props.addEvent({ start, end });
+          this.props.onSelectSlot({ start, end });
         },
         // Delete event in parent component
         onSelectEvent: ({ begins, ends }) => {
-          this.props.removeEvent({ begins, ends });
+          this.props.onSelectEvent({ begins, ends });
         },
         selectable: true,
       });
     } else {
       this.setState({
-        onSelectSlot: () => {},
-        onSelectEvent: () => {},
+        onSelectEvent: ({ begins, ends }) => {
+          this.props.onSelectEvent({ begins, ends });
+        },
         selectable: false,
       });
     }

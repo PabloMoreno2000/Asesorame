@@ -78,6 +78,7 @@ export const API = {
         true,
         {}
       ),
+    saveLink: (link) => db("PUT", "/api/tutors/setLink", { link }, true, {}),
   },
   users: {
     createUser: (username, password) =>

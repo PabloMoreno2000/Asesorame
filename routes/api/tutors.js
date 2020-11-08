@@ -9,6 +9,7 @@ const User = require("../../models/User");
 // @desct  Makes the authenticated user a tutor
 // @access private
 // TODO: Put this in a try/catch
+/*
 router.put(
   "/makeTutor",
   [
@@ -61,6 +62,25 @@ router.put(
     await User.findByIdAndUpdate(req.user.id, {
       tutorInfo,
       isTutor: true,
+    });
+    res.send("Done!");
+  }
+);
+*/
+router.put(
+  "/setLink",
+  [auth, [check("link", "Favor de ingresar un link").isURL()]],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array(),
+      });
+    }
+
+    await User.findByIdAndUpdate(req.user.id, {
+      isTutor: true,
+      "tutorInfo.tutoringLink": req.body.link,
     });
     res.send("Done!");
   }
