@@ -45,12 +45,25 @@ export default class UserCalendar extends Component {
     }
   }
 
+  parseEvents = () => {
+    let events = this.props.events.map((session) => {
+      return {
+        _id: session._id,
+        begins: new Date(session.begins),
+        ends: new Date(session.ends),
+        subjectName: session.subjectName,
+        tutor: session.tutor,
+      };
+    });
+    return events;
+  };
+
   render() {
     return (
       <div>
         <Calendar
           style={calendarStyle}
-          events={this.props.events}
+          events={this.parseEvents(this.props.events)}
           localizer={momentLocalizer}
           views={["month", "week", "day"]}
           defaultView={Views.WEEK}

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 //import { Link } from "react-router-dom";
 //import Button from "react-bootstrap/Button";
 
-export default class ChooseSessionDetails extends Component {
+export default class SessionDetails extends Component {
   state = {
     subjectId: "",
   };

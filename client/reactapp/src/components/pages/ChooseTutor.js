@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import TutorElement from "../makeTutoringSession/TutorElement";
 import SubjectToolbar from "../makeTutoringSession/SubjectToolbar";
+import UserCalendar from "../modifyTutorInfo/UserCalendar";
 import { API } from "../../scripts/API";
 
 export default class ChooseTutor extends Component {
   state = {
     subjectId: "",
     tutors: null,
+    events: [],
+    tutorId: null,
   };
 
   changeSubject = (id) => {
@@ -33,17 +36,40 @@ export default class ChooseTutor extends Component {
       : this.props.location.state.subjectId;
     const tutors = await this.getTutorsBySubject(subjectId);
     this.setState({ tutors });
-    console.log(this.state);
+  };
+
+  setSelectedTutor = async (tutorId) => {
+    try {
+      const resp = await API.tutoringSessions.getAvailableSessionsWithTutor(
+        tutorId
+      );
+      this.setState({ events: resp.data });
+      console.log("RESP" + resp);
+    } catch (error) {
+      console.log(error);
+      return;
+    }
   };
 
   getTutorsJSX = () => {
     if (this.state.tutors) {
       return this.state.tutors.map((tutor) => {
-        return <TutorElement key={tutor._id} tutor={tutor}></TutorElement>;
+        return (
+          <TutorElement
+            key={tutor._id}
+            tutor={tutor}
+            setSelectedTutor={this.setSelectedTutor}
+          ></TutorElement>
+        );
       });
     } else {
       return <div>Cargando...por favor espere</div>;
     }
+  };
+
+  onSelectEvent = ({ begins, ends }) => {
+    console.log(begins);
+    console.log(ends);
   };
 
   componentWillMount() {
@@ -52,7 +78,23 @@ export default class ChooseTutor extends Component {
     this.updateTutors();
   }
 
+  getCalendar = () => {
+    if (this.state.events && this.state.events.length > 0) {
+      return (
+        <UserCalendar
+          selectable={false}
+          events={this.state.events}
+          onSelectSlot={null}
+          onSelectEvent={this.onSelectEvent}
+        />
+      );
+    } else {
+      return <React.Fragment></React.Fragment>;
+    }
+  };
+
   render() {
+    console.log(this.state.events);
     return (
       <div className="container">
         <div>
@@ -68,6 +110,7 @@ export default class ChooseTutor extends Component {
         </div>
         <h1>Tutores disponibles</h1>
         {this.getTutorsJSX()}
+        {this.getCalendar()}
       </div>
     );
   }

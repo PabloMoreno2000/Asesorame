@@ -5,6 +5,10 @@ import Button from "react-bootstrap/Button";
 import img from "../../assets/profile.png";
 
 export default class TutorElement extends Component {
+  onTutorSelect = () => {
+    this.props.setSelectedTutor(this.props.tutor._id);
+  };
+
   render() {
     const tutorInfo = this.props.tutor.tutorInfo;
 
@@ -21,10 +25,12 @@ export default class TutorElement extends Component {
                 <Card.Text style={{ textAlign: "left" }}>
                   {`Asesorias impartidas: ${tutorInfo.sessionsGiven}`}
                 </Card.Text>
-                <Button variant="primary" style={btnStyle}>
-                  <Link style={linkStyle} to="/inicio">
-                    Seleccionar
-                  </Link>
+                <Button
+                  variant="primary"
+                  style={btnStyle}
+                  onClick={this.onTutorSelect}
+                >
+                  Seleccionar
                 </Button>
               </div>
             </div>

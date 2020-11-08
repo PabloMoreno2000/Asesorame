@@ -61,7 +61,6 @@ export default class ModifySchedule extends Component {
           <UserCalendar
             selectable={true}
             events={this.state.events}
-            tutorId={this.state.tutorId}
             onSelectSlot={this.addEvent}
             onSelectEvent={this.removeEvent}
           />
