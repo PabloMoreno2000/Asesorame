@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import TutorElement from "../makeTutoringSession/TutorElement";
 import SubjectToolbar from "../makeTutoringSession/SubjectToolbar";
 import UserCalendar from "../modifyTutorInfo/UserCalendar";
@@ -11,6 +12,52 @@ export default class ChooseTutor extends Component {
     tutors: null,
     events: [],
     tutorId: null,
+    modalShow: false,
+    selectedEventId: null,
+  };
+
+  displayModal = (props) => {
+    return (
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Confirma tu asesoría
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Haz click en aceptar para separar el espacio seleccionado.</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.onModalConfirm}>Confirmar</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  };
+
+  onModalConfirm = async () => {
+    if (this.state.selectedEventId && this.state.subjectId) {
+      await API.tutoringSessions.scheduleWithStudent(
+        this.state.selectedEventId,
+        this.state.subjectId
+      );
+      this.setState({
+        events: [
+          ...this.state.events.filter(
+            (event) => event._id !== this.state.selectedEventId
+          ),
+        ],
+        selectedEventId: null,
+      });
+      alert("Asesoria reservada exitosamente");
+    } else {
+      alert("Error, favor de intentar de nuevo");
+    }
+    this.setModalShow(false);
   };
 
   changeSubject = (id) => {
@@ -44,7 +91,6 @@ export default class ChooseTutor extends Component {
         tutorId
       );
       this.setState({ events: resp.data });
-      console.log("RESP" + resp);
     } catch (error) {
       console.log(error);
       return;
@@ -67,9 +113,14 @@ export default class ChooseTutor extends Component {
     }
   };
 
-  onSelectEvent = ({ begins, ends }) => {
-    console.log(begins);
-    console.log(ends);
+  setModalShow = (show) => {
+    this.setState({ modalShow: show });
+  };
+
+  onSelectEvent = ({ begins, ends, _id }) => {
+    console.log(_id);
+    this.setState({ selectedEventId: _id });
+    this.setModalShow(true);
   };
 
   componentWillMount() {
@@ -94,7 +145,6 @@ export default class ChooseTutor extends Component {
   };
 
   render() {
-    console.log(this.state.events);
     return (
       <div className="container">
         <div>
@@ -111,10 +161,20 @@ export default class ChooseTutor extends Component {
         <h1>Tutores disponibles</h1>
         {this.getTutorsJSX()}
         {this.getCalendar()}
+        {this.displayModal({
+          show: this.state.modalShow,
+        })}
       </div>
     );
   }
 }
+
+/*
+        <MyVerticallyCenteredModal
+          show={this.state.modalShow}
+          onHide={() => this.setModalShow(false)}
+        />
+*/
 
 const btnStyle = {
   marginLeft: "10px",

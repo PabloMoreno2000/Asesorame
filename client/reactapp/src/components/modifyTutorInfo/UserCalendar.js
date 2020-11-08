@@ -25,11 +25,9 @@ export default class UserCalendar extends Component {
     const selectable = this.props.selectable;
     if (selectable) {
       this.setState({
-        // Create and add new event in parent component
         onSelectSlot: ({ start, end }) => {
           this.props.onSelectSlot({ start, end });
         },
-        // Delete event in parent component
         onSelectEvent: ({ begins, ends }) => {
           this.props.onSelectEvent({ begins, ends });
         },
@@ -37,8 +35,8 @@ export default class UserCalendar extends Component {
       });
     } else {
       this.setState({
-        onSelectEvent: ({ begins, ends }) => {
-          this.props.onSelectEvent({ begins, ends });
+        onSelectEvent: ({ begins, ends, _id }) => {
+          this.props.onSelectEvent({ begins, ends, _id });
         },
         selectable: false,
       });
