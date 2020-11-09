@@ -16,6 +16,11 @@ export default class ChooseTutor extends Component {
     selectedEventId: null,
   };
 
+  calendarStyle = {
+    height: "500px",
+    margin: "30px",
+  };
+
   displayModal = (props) => {
     return (
       <Modal
@@ -121,7 +126,6 @@ export default class ChooseTutor extends Component {
   };
 
   onSelectEvent = ({ _id }) => {
-    console.log(_id);
     this.setState({ selectedEventId: _id });
     this.setModalShow(true);
   };
@@ -140,6 +144,7 @@ export default class ChooseTutor extends Component {
           events={this.state.events}
           onSelectSlot={null}
           onSelectEvent={this.onSelectEvent}
+          calendarStyle={this.calendarStyle}
         />
       );
     } else {

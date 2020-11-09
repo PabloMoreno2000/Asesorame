@@ -1,15 +1,11 @@
 import React, { Component } from "react";
-
 import { Calendar, Views } from "react-big-calendar";
 import localizer from "react-big-calendar/lib/localizers/moment";
 import moment from "moment";
 import "moment/locale/es-mx";
-
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 moment.locale("es-mx");
-console.log(moment().format());
-
 const momentLocalizer = localizer(moment);
 
 export default class UserCalendar extends Component {
@@ -61,7 +57,7 @@ export default class UserCalendar extends Component {
     return (
       <div>
         <Calendar
-          style={calendarStyle}
+          style={this.props.calendarStyle}
           events={this.parseEvents(this.props.events)}
           localizer={momentLocalizer}
           views={["month", "week", "day"]}
@@ -87,11 +83,6 @@ export default class UserCalendar extends Component {
     );
   }
 }
-
-const calendarStyle = {
-  height: "500px",
-  margin: "30px",
-};
 
 /*
 Usos del calendario:

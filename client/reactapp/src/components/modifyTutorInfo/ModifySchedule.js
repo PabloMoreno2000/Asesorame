@@ -8,6 +8,11 @@ export default class ModifySchedule extends Component {
     events: [],
   };
 
+  calendarStyle = {
+    height: "500px",
+    margin: "30px",
+  };
+
   getInitialEvents = () => {
     this.setState({
       tutorId: this.props.tutorId,
@@ -22,7 +27,7 @@ export default class ModifySchedule extends Component {
       ends: end,
       subjectName: "Asesoria",
     };
-    console.log(newTutoringSession.subjectName)
+    console.log(newTutoringSession.subjectName);
     this.setState({
       events: [...this.state.events, newTutoringSession],
     });
@@ -30,11 +35,7 @@ export default class ModifySchedule extends Component {
 
   removeEvent = ({ _id }) => {
     this.setState({
-      events: [
-        ...this.state.events.filter(
-          (event) => event._id !== _id
-        ),
-      ],
+      events: [...this.state.events.filter((event) => event._id !== _id)],
     });
   };
 
@@ -63,6 +64,7 @@ export default class ModifySchedule extends Component {
             events={this.state.events}
             onSelectSlot={this.addEvent}
             onSelectEvent={this.removeEvent}
+            calendarStyle={this.calendarStyle}
           />
           <div style={divLineStyle}></div>
         </div>

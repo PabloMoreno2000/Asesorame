@@ -42,7 +42,7 @@ class App extends Component {
           />
           <Route path="/inicio" component={StartPage} />
           <Route path="/hacerseTutor" component={BecomeTutor} />
-          <Route path="/detalles" component={ChooseTutor} />
+          <Route path="/reservar" component={ChooseTutor} />
         </div>
       </Router>
     );

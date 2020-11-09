@@ -72,6 +72,7 @@ export const API = {
       db("GET", "/api/sessions/getSessionsByUser", null, true, {}),
     postTutorSessions: (sessions) =>
       db("POST", "/api/sessions/createBatch", { sessions }, true, {}),
+    getDetails: () => db(),
   },
   tutors: {
     getAllBySubject: (subjectId) =>
