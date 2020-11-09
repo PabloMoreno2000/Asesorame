@@ -52,8 +52,14 @@ export const API = {
         true,
         {}
       ),
-    getSessionsByTutor: () =>
-      db("GET", "/api/sessions/getSessionsByTutor", null, true, {}),
+    getSessionsByTutor: (sendUnreserved) =>
+      db(
+        "GET",
+        `/api/sessions/getSessionsByTutor/${sendUnreserved}`,
+        null,
+        true,
+        {}
+      ),
     getAvailableSessionsWithTutor: (tutorId) =>
       db(
         "GET",
@@ -64,7 +70,7 @@ export const API = {
       ),
     getSessionsByUser: () =>
       db("GET", "/api/sessions/getSessionsByUser", null, true, {}),
-    postTutorSessions: (sessions) => 
+    postTutorSessions: (sessions) =>
       db("POST", "/api/sessions/createBatch", { sessions }, true, {}),
   },
   tutors: {

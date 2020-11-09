@@ -82,12 +82,9 @@ export default class ChooseTutor extends Component {
       ? this.state.subjectId
       : this.props.location.state.subjectId;
     let tutors = await this.getTutorsBySubject(subjectId);
-    console.log("BEFORE");
-    console.log(tutors);
-    console.log("USER ID: " + this.props.location.state.userId);
-    tutors = tutors.filter(tutor => tutor._id !== this.props.location.state.userId);
-    console.log("AFTER");
-    console.log(tutors);
+    tutors = tutors.filter(
+      (tutor) => tutor._id !== this.props.location.state.userId
+    );
     this.setState({ tutors: tutors });
   };
 

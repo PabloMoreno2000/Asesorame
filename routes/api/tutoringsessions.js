@@ -133,11 +133,22 @@ router.get("/details/:id", auth, async (req, res) => {
 // @route GET sessions/getSessionsByTutor
 // @desct Gets all sesions where auth tutor is involved
 // @access private
-router.get("/getSessionsByTutor", auth, async (req, res) => {
+router.get("/getSessionsByTutor/:sendUnreserved", auth, async (req, res) => {
   try {
-    const sessions = await TS.find({ tutor: req.user.id })
-      .populate("tutor", ["username", "tutorInfo"])
-      .populate("student", "username");
+    let sessions = [];
+    const sendUnreserved = req.params.sendUnreserved == "true";
+    if (!sendUnreserved) {
+      sessions = await TS.find({ tutor: req.user.id })
+        .populate("tutor", ["username", "tutorInfo"])
+        .populate("student", "username");
+    } else {
+      sessions = await TS.find({
+        $and: [{ tutor: req.user.id }, { student: { $exists: false } }],
+      })
+        .populate("tutor", ["username", "tutorInfo"])
+        .populate("student", "username");
+    }
+
     res.json(sessions);
   } catch (error) {
     console.log(error);
@@ -188,7 +199,9 @@ router.post(
     let sessions = [];
 
     // Delete blocks of tutor
-    await TS.deleteMany({ tutor: req.user.id });
+    await TS.deleteMany({
+      $and: [{ tutor: req.user.id }, { student: { $exists: false } }],
+    });
 
     // Add new blocks for tutor
     sessionsArray.forEach(async (session) => {

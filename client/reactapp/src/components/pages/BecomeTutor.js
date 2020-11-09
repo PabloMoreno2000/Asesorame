@@ -45,7 +45,9 @@ export default class BecomeTutor extends Component {
     const getAllSessions = async () => {
       let resp = [];
       try {
-        resp = await API.tutoringSessions.getSessionsByTutor();
+        resp = await API.tutoringSessions.getSessionsByTutor(
+          /* sendUnreserved */ true
+        );
       } catch (error) {
         console.log(error);
       }
