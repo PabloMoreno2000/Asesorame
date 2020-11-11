@@ -112,16 +112,13 @@ router.delete("/delete/:id", auth, async (req, res) => {
 // @access private
 router.get("/details/:id", auth, async (req, res) => {
   try {
-    let session = await TS.findById(req.params.id);
+    let session = await TS.findById(req.params.id)
+      .populate("tutor", ["tutorInfo"])
+      .populate("student", ["tutorInfo"]);
     const userId = req.user.id;
 
-    if (userId !== session.tutor && userId !== session.student) {
+    if (userId != session.tutor._id && userId != session._id) {
       return res.status(403).send("Access Denied");
-    }
-
-    session = await session.populate("tutor");
-    if (session.student) {
-      session = await session.populate("student");
     }
     res.json(session);
   } catch (error) {
