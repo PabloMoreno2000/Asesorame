@@ -17,17 +17,19 @@ export default class Home extends Component {
             <Card.Text style={phraseStyle}>
               <strong>Encuentra a un tutor</strong>
             </Card.Text>
-            <Button variant="primary" type="submit" style={btnStyle}>
-              <Link style={linkStyle} to="/signIn">
-                Iniciar sesión
-              </Link>
-            </Button>
+
+            <Link to="/signIn">
+              <Button variant="primary" style={btnStyle}>
+                Iniciar Sesión
+              </Button>
+            </Link>
+
             <br />
-            <Button variant="primary" type="submit" style={btnStyle}>
-              <Link style={linkStyle} to="/signUp">
+            <Link to="/signUp">
+              <Button variant="primary" style={btnStyle}>
                 Crear cuenta
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </Card.ImgOverlay>
         </Card>
       </div>
