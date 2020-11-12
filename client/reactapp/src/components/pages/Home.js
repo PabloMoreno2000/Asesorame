@@ -1,10 +1,19 @@
+import { withRouter } from "react-router-dom";
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import tutoring from "../../assets/tutoringdos.png";
 import { Link } from "react-router-dom";
 
-export default class Home extends Component {
+class Home extends Component {
+  componentDidMount() {
+    // When there's token go to main page
+    const token = localStorage.getItem("x-auth-token");
+    if (token && token != "") {
+      this.props.history.push("/inicio");
+    }
+  }
+
   render() {
     return (
       <div>
@@ -55,8 +64,4 @@ const linkStyle = {
   margin: "auto",
 };
 
-/*
-import {BrowserRouter as Router, Route} from 'react-router-dom'
-
-
-*/
+export default withRouter(Home);
