@@ -22,7 +22,7 @@ function db(requestType, url, data, requiresAuth, headers) {
       request = axios.put(url, data, config);
       break;
     case "DELETE":
-      request = axios.delete(url, data, config);
+      request = axios.delete(url, { headers, data });
       break;
     default:
       request = "Bad request type";
@@ -74,6 +74,8 @@ export const API = {
       db("POST", "/api/sessions/createBatch", { sessions }, true, {}),
     getDetails: (sessionId) =>
       db("GET", `/api/sessions/details/${sessionId}`, null, true, {}),
+    delete: (sessionId) =>
+      db("DELETE", `/api/sessions/delete/${sessionId}`, null, true, {}),
   },
   tutors: {
     getAllBySubject: (subjectId) =>

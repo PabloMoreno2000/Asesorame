@@ -108,6 +108,27 @@ export default class StartPage extends Component {
     return `${day}/${month}/${year}`;
   };
 
+  deleteCurrentSession = async () => {
+    let id = this.state.selectedEventId;
+    try {
+      await API.tutoringSessions.delete(id);
+      this.handleClose();
+      alert("Asesoría cancelada exitosamente");
+      this.setState({
+        selectedEventId: null,
+        selectedEvent: null,
+        events: [
+          ...this.state.events.filter((event) => {
+            return event._id !== id;
+          }),
+        ],
+      });
+    } catch (error) {
+      alert("Favor de intentar más tarde");
+      console.log(error);
+    }
+  };
+
   displayModal = (props) => {
     const selectedEvent = this.state.selectedEvent;
     if (selectedEvent) {
@@ -158,8 +179,8 @@ export default class StartPage extends Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="danger" onClick={this.handleClose}>
-              Cancelar
+            <Button variant="danger" onClick={this.deleteCurrentSession}>
+              Eliminar
             </Button>
             <Button onClick={this.handleClose}>Confirmar</Button>
           </Modal.Footer>
