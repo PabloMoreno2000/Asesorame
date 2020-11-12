@@ -1,3 +1,4 @@
+import { withRouter } from "react-router-dom";
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -9,7 +10,7 @@ import { BsFillPersonFill } from "react-icons/bs";
 
 import { API } from "../../scripts/API";
 
-export default class SignIn extends Component {
+class SignIn extends Component {
   state = {
     user: "",
     password: "",
@@ -22,6 +23,11 @@ export default class SignIn extends Component {
   onSubmit = async (e) => {
     e.preventDefault();
 
+    if (this.state.user === "" || this.state.password === "") {
+      alert("Favor de llenar todos los campos");
+      return;
+    }
+
     let token = "";
     try {
       let resp = await API.auth.postAuthUser(
@@ -31,7 +37,9 @@ export default class SignIn extends Component {
       token = resp.data.token;
       localStorage.setItem("x-auth-token", token);
       this.props.updateUser();
+      this.props.history.push("/inicio");
     } catch (error) {
+      alert("Usuario incorrecto, trate de nuevo");
       console.log(error);
     }
   };
@@ -39,8 +47,13 @@ export default class SignIn extends Component {
   render() {
     return (
       <div style={divCenter}>
-        <Card className="text-center" style={{ width: "30%" }}>
-          <h2 style={{ marginTop: "15px" }}>Iniciar sesión</h2>
+        <Card
+          className="text-center"
+          style={{
+            width: "30%",
+          }}
+        >
+          <h1 style={{ marginTop: "15px" }}>Iniciar sesión</h1>
           <Card.Body>
             <Form>
               <Form.Group controlId="formBasicEmail">
@@ -81,9 +94,7 @@ export default class SignIn extends Component {
                 variant="primary"
                 style={{ width: "100%", marginBottom: "10px" }}
               >
-                <Link style={linkStyle} to="/inicio">
-                  Iniciar sesión
-                </Link>
+                Iniciar sesión
               </Button>
             </Form>
 
@@ -97,17 +108,13 @@ export default class SignIn extends Component {
   }
 }
 
-const linkStyle = {
-  color: "#fff",
-  textDecoration: "none",
-  margin: "auto",
-};
-
 const divCenter = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   textAlign: "center",
-  minHeight: "100vh",
+  minHeight: "85vh",
 };
+
+export default withRouter(SignIn);

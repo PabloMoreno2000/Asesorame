@@ -91,8 +91,14 @@ export const API = {
     saveLink: (link) => db("PUT", "/api/tutors/setLink", { link }, true, {}),
   },
   users: {
-    createUser: (username, password) =>
-      db("POST", "/api/users/", { username, password }, false, {}),
+    createUser: (username, password, firstName, firstSurname) =>
+      db(
+        "POST",
+        "/api/users/",
+        { username, password, firstName, firstSurname },
+        false,
+        {}
+      ),
   },
   subjects: {
     getAll: () => db("GET", "/api/subjects/getAll/", null, false, {}),

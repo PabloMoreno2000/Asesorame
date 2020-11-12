@@ -47,11 +47,11 @@ export default class Header extends Component {
               Panel de Tutor
             </Nav.Link>
           </Nav>
-          <Button variant="outline-light" onClick={this.signOut}>
-            <Link className="btnLinkStyle" to="/">
+          <Link to="/">
+            <Button onClick={this.signOut} variant="outline-light">
               Cerrar Sesión
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </React.Fragment>
       );
     } else {
@@ -69,11 +69,11 @@ export default class Header extends Component {
               Convertirse en tutor
             </Nav.Link>
           </Nav>
-          <Button onClick={this.signOut} variant="outline-light">
-            <Link className="btnLinkStyle" to="/">
+          <Link to="/">
+            <Button onClick={this.signOut} variant="outline-light">
               Cerrar Sesión
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </React.Fragment>
       );
     }
@@ -89,11 +89,3 @@ export default class Header extends Component {
     );
   }
 }
-
-/*
-NoLog --> Asesórame (solo titulo)
-
-Log and tutor --> cerrar sesión, editar perfil (editar nombre, etc), editar disponibilidad (editar materias y schedule), inicio
-
-Log and not-tutor --> cerrar sesión, editar perfil (editar nombre, etc), inicio, hacerse tutor
-*/

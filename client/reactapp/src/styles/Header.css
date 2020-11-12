@@ -7,6 +7,10 @@
   text-decoration: underline;
 }
 
+.btnStyle:hover {
+  color: #007bff;
+}
+
 .title {
   font-size: 25px;
 }

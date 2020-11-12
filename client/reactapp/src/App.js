@@ -23,6 +23,7 @@ class App extends Component {
   };
 
   render() {
+    console.log(Header);
     return (
       <Router>
         <div className="App">

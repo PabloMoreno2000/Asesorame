@@ -16,11 +16,13 @@ router.post(
   [
     // Second parameter of check is a custom error message
     // Checks for the value of a json key called "username"
-    check("username", "Favor de ingresar un nombre de usuario").not().isEmpty(),
+    check("username", "Favor de ingresar un usuario").not().isEmpty(),
     check(
       "password",
       "Favor de ingresar una contraseña con mínimo 6 caracteres"
     ).isLength({ min: 6 }),
+    check("firstName", "Favor de ingresar un nombre").not().isEmpty(),
+    check("firstSurname", "Favor de ingresar un apellido").not().isEmpty(),
   ],
   async (req, res) => {
     // The check is done with the second parameter of above within []
@@ -31,7 +33,7 @@ router.post(
         errors: errors.array(),
       });
     }
-    const { username, password } = req.body;
+    const { username, password, firstName, firstSurname } = req.body;
 
     try {
       // Check if there's a user with that username
@@ -46,6 +48,13 @@ router.post(
       let user = new User({
         username,
         password,
+        tutorInfo: {
+          name: {
+            firstName,
+            firstSurname,
+            secondSurname: "",
+          },
+        },
       });
 
       // 10 is recommended in documentation, the bigger the number means more security
