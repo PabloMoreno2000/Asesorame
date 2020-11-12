@@ -40,9 +40,6 @@ export default class Header extends Component {
             <Nav.Link href="/inicio" className="linkStyle">
               Inicio
             </Nav.Link>
-            <Nav.Link href="/perfil" className="linkStyle">
-              Perfil
-            </Nav.Link>
             <Nav.Link href="/hacerseTutor" className="linkStyle">
               Panel de Tutor
             </Nav.Link>
@@ -61,9 +58,6 @@ export default class Header extends Component {
           <Nav className="mr-auto">
             <Nav.Link href="/inicio" className="linkStyle">
               Inicio
-            </Nav.Link>
-            <Nav.Link href="/perfil" className="linkStyle">
-              Perfil
             </Nav.Link>
             <Nav.Link href="/hacerseTutor" className="linkStyle">
               Convertirse en tutor
