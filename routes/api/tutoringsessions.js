@@ -117,7 +117,7 @@ router.get("/details/:id", auth, async (req, res) => {
       .populate("student", ["tutorInfo"]);
     const userId = req.user.id;
 
-    if (userId != session.tutor._id && userId != session._id) {
+    if (userId != session.tutor._id && userId != session.student._id) {
       return res.status(403).send("Access Denied");
     }
     res.json(session);
@@ -202,7 +202,6 @@ router.post(
 
     // Add new blocks for tutor
     sessionsArray.forEach(async (session) => {
-      console.log(session.subjectName);
       const newSession = new TS({
         tutor: session.tutor,
         subjectName: session.subjectName,

@@ -33,9 +33,7 @@ export default class StartPage extends Component {
     const getAllSessions = async () => {
       let resp = [];
       try {
-        resp = await API.tutoringSessions.getSessionsByTutor(
-          /* sendUnreserved */ false
-        );
+        resp = await API.tutoringSessions.getSessionsByUser();
       } catch (error) {
         console.log(error);
       }
@@ -89,7 +87,7 @@ export default class StartPage extends Component {
     const timeUnit = 6e4;
     before = new Date(before);
     after = new Date(after);
-    let difference = (after - before) / timeUnit;
+    let difference = Math.round((after - before) / timeUnit);
     const remainder = (after - before) % timeUnit;
     if (remainder >= timeUnit / 2) {
       difference++;
@@ -207,7 +205,6 @@ export default class StartPage extends Component {
   };
 
   render() {
-    console.log(this.state.selectedEvent);
     if (this.state.user && this.state.events) {
       return (
         <div className="container">

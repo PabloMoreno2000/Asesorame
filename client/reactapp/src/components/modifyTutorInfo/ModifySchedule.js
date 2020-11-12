@@ -27,7 +27,6 @@ export default class ModifySchedule extends Component {
       ends: end,
       subjectName: "Asesoria",
     };
-    console.log(newTutoringSession.subjectName);
     this.setState({
       events: [...this.state.events, newTutoringSession],
     });
@@ -49,7 +48,6 @@ export default class ModifySchedule extends Component {
 
   render() {
     if (this.state.tutorId) {
-      console.log(this.state.events);
       return (
         <div>
           <div style={{ textAlign: "left", marginTop: "30px" }}>
