@@ -102,10 +102,18 @@ export default class StartPage extends Component {
     let year = date.getFullYear();
     let month = months[date.getMonth()];
     let day = date.getDate();
+    let hour = date.getHours();
+    let minutes = date.getMinutes();
     if (day < 10) {
       day = `0${day}`;
     }
-    return `${day}/${month}/${year}`;
+    if (hour < 10) {
+      hour = `0${hour}`;
+    }
+    if (minutes < 10) {
+      minutes = `0${minutes}`;
+    }
+    return `${day}/${month}/${year} a las ${hour}:${minutes}`;
   };
 
   deleteCurrentSession = async () => {
@@ -218,6 +226,10 @@ export default class StartPage extends Component {
               Buscar tutores
             </Link>
           </Button>
+          <div style={{ textAlign: "left", margin: "15px 20px" }}>
+            <h1>Tu calendario</h1>
+          </div>
+          <div style={divLineStyle}></div>
           <UserCalendar
             selectable={false}
             events={this.state.events}
@@ -255,6 +267,11 @@ const modalHeaderStyle = {
 
 const labelStyle = {
   fontWeight: "bold",
+};
+
+const divLineStyle = {
+  borderTop: "solid 2px #000",
+  marginBottom: "20px",
 };
 
 const months = [
