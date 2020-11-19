@@ -32,9 +32,17 @@ export default class ModifySchedule extends Component {
     });
   };
 
-  removeEvent = ({ _id }) => {
+  removeEvent = ({ _id, begins, ends }) => {
     this.setState({
-      events: [...this.state.events.filter((event) => event._id !== _id)],
+      events: [
+        ...this.state.events.filter((event) => {
+          if(event._id) {
+            return event._id !== _id
+          } else {
+            return event.begins.getTime() !== begins.getTime() && event.ends.getTime() !== ends.getTime();
+          }
+        }),
+      ],
     });
   };
 

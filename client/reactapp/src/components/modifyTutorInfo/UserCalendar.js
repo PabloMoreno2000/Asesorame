@@ -24,15 +24,15 @@ export default class UserCalendar extends Component {
         onSelectSlot: ({ start, end }) => {
           this.props.onSelectSlot({ start, end });
         },
-        onSelectEvent: ({ _id }) => {
-          this.props.onSelectEvent({ _id });
+        onSelectEvent: ({ _id, begins, ends }) => {
+          this.props.onSelectEvent({ _id, begins, ends });
         },
         selectable: true,
       });
     } else {
       this.setState({
-        onSelectEvent: ({ begins, ends, _id }) => {
-          this.props.onSelectEvent({ _id });
+        onSelectEvent: ({ _id, begins, ends }) => {
+          this.props.onSelectEvent({ _id, begins, ends });
         },
         selectable: false,
       });

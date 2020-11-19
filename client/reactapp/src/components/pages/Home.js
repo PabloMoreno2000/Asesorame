@@ -9,7 +9,7 @@ class Home extends Component {
   componentDidMount() {
     // When there's token go to main page
     const token = localStorage.getItem("x-auth-token");
-    if (token && token != "") {
+    if (token && token !== "") {
       this.props.history.push("/inicio");
     }
   }
@@ -57,11 +57,5 @@ const titleStyle = {
 };
 
 const phraseStyle = {};
-
-const linkStyle = {
-  color: "#fff",
-  textDecoration: "none",
-  margin: "auto",
-};
 
 export default withRouter(Home);

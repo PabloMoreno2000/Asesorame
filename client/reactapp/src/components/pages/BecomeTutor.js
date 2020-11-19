@@ -11,14 +11,14 @@ export default class BecomeTutor extends Component {
     subjects: null,
     tutor: null,
     events: null,
-    link: "https://itesm.zoom.us/j/2958133284",
+    link: "",
   };
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  async componentWillMount() {
+  async componentDidMount() {
     const getAllSubjects = async () => {
       let resp = [];
       try {
@@ -72,14 +72,13 @@ export default class BecomeTutor extends Component {
     await this.refs.modifySubjects.saveSubjectsToDb();
     await this.refs.modifySchedule.saveSessionsToDb();
     alert("Información guardada exitosamente");
-  };
+  }; 
 
   render() {
     if (
       this.state.tutor &&
       this.state.subjects &&
-      this.state.events &&
-      this.state.link
+      this.state.events
     ) {
       return (
         <div style={{ width: "60%", margin: "20px auto" }}>
